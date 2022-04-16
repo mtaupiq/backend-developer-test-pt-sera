@@ -66,18 +66,22 @@ class AuthController extends BaseController
         if (!$user) {
             return response()->json([
                 'error' => 'Email or password is wrong.'
-            ], 400);
+            ], 422);
         }
 
         if (Hash::check($this->request->input('password'), $user->password)) {
+            $token = $this->jwt($user);
+            $user->update([
+                'token' => $token,
+            ]);
             return response()->json([
-                'token' => $this->jwt($user)
+                'token' => $token
             ], 200);
         }
 
         return response()->json([
             'error' => 'Email or password is wrong.'
-        ], 400);
+        ], 422);
     }
 
     /**
@@ -100,7 +104,7 @@ class AuthController extends BaseController
         if ($user) {
             return response()->json([
                 'error' => 'Email already exist.'
-            ], 400);
+            ], 422);
         }
 
         $user = User::create([
@@ -112,6 +116,31 @@ class AuthController extends BaseController
         $response = [
             'status' => 'success',
             'message' => 'user created',
+        ];
+
+        return response()->json($response, 200);
+    }
+
+    /**
+     * Logout a user 
+     *
+     * @param  User $user
+     * @return mixed
+     * @throws ValidationException
+     */
+    public function logout(Request $request)
+    {
+        $authUser = $request->auth;
+
+        $user = User::where('_id',$authUser->id)->first();
+
+        $user->update([
+            'token' => null,
+        ]);
+
+        $response = [
+            'status' => 'success',
+            'message' => 'user logout.',
         ];
 
         return response()->json($response, 200);

@@ -22,5 +22,31 @@ $router->get('/secretkey', function(){
     return $key;
 });
 
-$router->post('auth/login', 'AuthController@authenticate');
-$router->post('auth/register', 'AuthController@register');
+$router->group(
+    [
+        'prefix' => 'api',
+    ],
+    function() use ($router) {
+        $router->post('login', 'AuthController@authenticate');
+        $router->post('register', 'AuthController@register');
+        
+        $router->post('logout', [
+            'middleware' => 'jwt.auth',
+            'uses' => 'AuthController@logout'
+            ]);
+            
+        $router->group(
+            [
+                'middleware' => 'jwt.auth',
+                'prefix' => 'posts/mongodb'
+            ],
+            function() use ($router) {
+                $router->get('/','PostController@index');
+                $router->post('/create','PostController@create');
+                $router->get('/{id}','PostController@show');
+                $router->put('/update/{id}','PostController@update');
+                $router->delete('/{id}','PostController@delete');
+            }
+        );
+    }
+);

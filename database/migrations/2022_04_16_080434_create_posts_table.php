@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Jenssegers\Mongodb\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreatePostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $collection) {
+        Schema::create('posts', function (Blueprint $collection) {
             $collection->increments('_id');
-            $collection->string('name');
-            $collection->string('email')->unique();
-            $collection->string('password');
-            $collection->string('token');
+            $collection->string('title');
+            $collection->string('author');
+            $collection->string('body');
             $collection->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('posts');
     }
 }
