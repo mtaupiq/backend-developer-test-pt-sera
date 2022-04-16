@@ -48,5 +48,19 @@ $router->group(
                 $router->delete('/{id}','PostController@delete');
             }
         );
+
+        $router->group(
+            [
+                'middleware' => 'jwt.auth',
+                'prefix' => 'posts/firebase'
+            ],
+            function() use ($router) {
+                $router->get('/','FirebaseController@index');
+                $router->post('/create','FirebaseController@create');
+                $router->get('/{id}','FirebaseController@show');
+                $router->put('/update/{id}','FirebaseController@update');
+                $router->delete('/{id}','FirebaseController@delete');
+            }
+        );
     }
 );

@@ -102,6 +102,8 @@ $app->register(Jenssegers\Mongodb\MongodbServiceProvider::class);
 $app->withFacades();
 $app->withEloquent();
 
+$app->register(Kreait\Laravel\Firebase\ServiceProvider::class);
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes

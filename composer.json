@@ -9,6 +9,7 @@
         "darkaonline/swagger-lume": "8.*",
         "firebase/php-jwt": "^6.1",
         "jenssegers/mongodb": "3.8",
+        "kreait/laravel-firebase": "^4.1",
         "laravel/lumen-framework": "^8.0"
     },
     "require-dev": {
