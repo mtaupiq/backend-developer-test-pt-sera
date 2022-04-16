@@ -16,3 +16,11 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+// Route for generate secret key
+$router->get('/secretkey', function(){
+    $key = bin2hex(random_bytes(16));
+    return $key;
+});
+
+$router->post('auth/login', 'AuthController@authenticate');
+$router->post('auth/register', 'AuthController@register');
