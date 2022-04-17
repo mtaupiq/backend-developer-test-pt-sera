@@ -7,6 +7,17 @@
 
 Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
 
+## Configuration
+# MongoDB
+DB_CONNECTION=mongodb
+DB_DSN=mongodb://[username:password@]host1[:port1][,...hostN[:portN]][/[defaultauthdb][?options]]
+DB_DATABASE=blog
+# JWT
+JWT_SECRET=
+# Firebase
+FIREBASE_CREDENTIALS=path/to/firebase_credentials.json
+FIREBASE_DATABASE_URL=https://<your-project>.firebaseio.com
+
 ## Official Documentation
 
 Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
