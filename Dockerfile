@@ -19,7 +19,7 @@ RUN apt-get install -y --no-install-recommends gnupg apt-utils nginx \
     && apt-get install -y supervisor \
     && mkdir -p /var/log/supervisor
     
-RUN pecl install -f uopz redis libsodium mongodb-1.8.1 mcrypt-1.0.2
+RUN pecl channel-update pecl.php.net && pecl install -f uopz-6.1.2 redis libsodium mongodb-1.8.1 mcrypt-1.0.2
 RUN echo "extension=sodium.so" > /etc/php/7.3/mods-available/sodium.ini \
     && echo "extension=uopz.so" > /etc/php/7.3/mods-available/uopz.ini \
     && echo "extension=redis.so" > /etc/php/7.3/mods-available/redis.ini \
@@ -42,6 +42,7 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 COPY ./nginx.conf /etc/nginx/sites-enabled/default
 COPY ./supervisord.conf  /etc/supervisor/conf.d/supervisord.conf
 COPY . /var/www/html
+RUN chown -R www-data:www-data /var/www
 WORKDIR /var/www/html
 EXPOSE 80
 CMD ["/usr/bin/supervisord"]
