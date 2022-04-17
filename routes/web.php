@@ -25,6 +25,8 @@ $router->get('/secretkey', function(){
 $router->post('/reqres/register', 'IntegrasiController@register');
 $router->post('/reqres/login', 'IntegrasiController@login');
 
+$router->get('/billdetails', 'BillingController@billdetails');
+
 $router->group(
     [
         'prefix' => 'api',
