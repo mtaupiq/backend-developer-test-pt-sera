@@ -10,7 +10,9 @@
         "firebase/php-jwt": "^6.1",
         "guzzlehttp/guzzle": "^7.4",
         "jenssegers/mongodb": "3.8",
-        "kreait/laravel-firebase": "^3.4",
+        "kreait/laravel-firebase": "3.1.0",
+        "kreait/firebase-php": "5.19.0",
+        "kreait/firebase-tokens": "1.15.0",
         "laravel/lumen-framework": "^8.0",
         "sentry/sentry-laravel": "^2.12"
     },
