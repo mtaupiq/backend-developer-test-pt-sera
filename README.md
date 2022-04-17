@@ -16,8 +16,10 @@ DB_DATABASE=blog
 JWT_SECRET=
 ### Firebase
 FIREBASE_CREDENTIALS=path/to/firebase_credentials.json  
-FIREBASE_DATABASE_URL=https://your-project.firebaseio.com
-
+FIREBASE_DATABASE_URL=https://your-project.firebaseio.
+### Sentry.io
+SENTRY_LARAVEL_DSN=  
+SENTRY_TRACES_SAMPLE_RATE=
 ## Official Documentation
 
 Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).

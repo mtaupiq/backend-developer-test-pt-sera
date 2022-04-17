@@ -107,6 +107,10 @@ $app->register(Kreait\Laravel\Firebase\ServiceProvider::class);
 
 $app->register(\SwaggerLume\ServiceProvider::class);
 
+$app->register('Sentry\Laravel\ServiceProvider');
+// To enable Sentry Performance Monitoring, the `TracingServiceProvider` has to be registered additionally:
+$app->register('Sentry\Laravel\Tracing\ServiceProvider');
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
