@@ -16,7 +16,7 @@ DB_DATABASE=blog
 JWT_SECRET=
 ### Firebase
 FIREBASE_CREDENTIALS=path/to/firebase_credentials.json  
-FIREBASE_DATABASE_URL=https://<your-project>.firebaseio.com
+FIREBASE_DATABASE_URL=https://your-project.firebaseio.com
 
 ## Official Documentation
 
