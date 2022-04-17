@@ -48,8 +48,23 @@ class AuthController extends BaseController
     }
 
     /**
-     * Authenticate a user and return the token if the provided credentials are correct.
-     *
+     * @OA\Post(
+     *     path="/api/login",
+     *     summary="Authenticate a user",
+     *     description="Authenticate a user and return the token if the provided credentials are correct.",
+     *     operationId="authenticate",
+     *     tags={"2. Authenticate"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         description="User object",
+     *         @OA\JsonContent(ref="#/components/schemas/AuthRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="token",
+     *         @OA\JsonContent(ref="#/components/schemas/AuthResponse"),
+     *     )
+     * )
      * @param  User $user
      * @return mixed
      * @throws ValidationException
@@ -85,8 +100,22 @@ class AuthController extends BaseController
     }
 
     /**
-     * Register a user 
-     *
+     * @OA\Post(
+     *     path="/api/register",
+     *     summary="Register a user",
+     *     operationId="register",
+     *     tags={"2. Authenticate"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         description="User object",
+     *         @OA\JsonContent(ref="#/components/schemas/RegisterRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="response",
+     *         @OA\JsonContent(ref="#/components/schemas/RegisterResponse"),
+     *     )
+     * )
      * @param  User $user
      * @return mixed
      * @throws ValidationException
@@ -122,8 +151,17 @@ class AuthController extends BaseController
     }
 
     /**
-     * Logout a user 
-     *
+     * @OA\Post(
+     *     path="/api/logout",
+     *     summary="logout a user",
+     *     operationId="logout",
+     *     tags={"2. Authenticate"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="response",
+     *         @OA\JsonContent(ref="#/components/schemas/RegisterResponse"),
+     *     )
+     * )
      * @param  User $user
      * @return mixed
      * @throws ValidationException
@@ -145,4 +183,5 @@ class AuthController extends BaseController
 
         return response()->json($response, 200);
     }
+
 }

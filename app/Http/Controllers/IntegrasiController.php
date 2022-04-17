@@ -22,6 +22,28 @@ class IntegrasiController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/reqres/register",
+     *     summary="Register a user",
+     *     description="6. Integrasi dengan reqres.in",
+     *     operationId="register",
+     *     tags={"6. reqres.in"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         description="User object",
+     *         @OA\JsonContent(ref="#/components/schemas/AuthRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="token",
+     *         @OA\JsonContent(ref="#/components/schemas/AuthResponse"),
+     *     )
+     * )
+     * @param  User $user
+     * @return mixed
+     * @throws ValidationException
+     */
     public function register(Request $request)
     { 
         $this->validatePayload($request);
@@ -32,6 +54,28 @@ class IntegrasiController extends Controller
         return response()->json($response, 200);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/reqres/login",
+     *     summary="Authenticate a user",
+     *     description="6. Integrasi dengan reqres.in",
+     *     operationId="login",
+     *     tags={"6. reqres.in"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         description="User object",
+     *         @OA\JsonContent(ref="#/components/schemas/AuthRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="token",
+     *         @OA\JsonContent(ref="#/components/schemas/AuthResponse"),
+     *     )
+     * )
+     * @param  User $user
+     * @return mixed
+     * @throws ValidationException
+     */
     public function login(Request $request)
     { 
         $this->validatePayload($request);

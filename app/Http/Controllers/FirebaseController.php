@@ -18,6 +18,45 @@ class FirebaseController extends Controller
         $this->database = app('firebase.database');
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/posts/firebase",
+     *     summary="List blog post",
+     *     operationId="index",
+     *     tags={"3. Firebase"},
+     *     @OA\Parameter(
+     *         name="token",
+     *         in="query",
+     *         description="Token required",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Returns all posts from firebase",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="status",
+     *                 type="string",
+     *                 description="Response Status",
+     *                 example="success"
+     *             ),
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 description="Response Message",
+     *                 example="posts list"
+     *             ),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 description="Response Data",
+     *                 @OA\Items(ref="#/components/schemas/Post")
+     *             )
+     *         )
+     *     )
+     * )
+     */
     public function index()
     {
         $reference = $this->database->getReference('posts');
@@ -32,6 +71,33 @@ class FirebaseController extends Controller
         return response()->json($response, 200);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/posts/firebase/create",
+     *     summary="New blog post",
+     *     operationId="create",
+     *     tags={"3. Firebase"},
+     *     @OA\Parameter(
+     *         name="token",
+     *         in="query",
+     *         description="Token required",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         description="Post object",
+     *         @OA\JsonContent(ref="#/components/schemas/PostRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="A post",
+     *         @OA\JsonContent(ref="#/components/schemas/PostResponse"),
+     *     )
+     * )
+     * @param Request $request
+     * @return array
+     */
     public function create(Request $request)
     {
         $uid = $request->auth->id;
@@ -65,6 +131,35 @@ class FirebaseController extends Controller
         return response()->json($response, 200);
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/posts/firebase/{id}",
+     *     summary="Get post by id",
+     *     operationId="show",
+     *     tags={"3. Firebase"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Post id",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="token",
+     *         in="query",
+     *         description="Token required",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="A post",
+     *         @OA\JsonContent(ref="#/components/schemas/PostResponse"),
+     *     )
+     * )
+     * @param $id
+     * @return array
+     */
     public function show($id)
     {
         try {
@@ -83,6 +178,41 @@ class FirebaseController extends Controller
         return response()->json($response, 200);
     }
 
+    /**
+     * @OA\Put(
+     *     path="/api/posts/firebase/update/{id}",
+     *     summary="Update blog post",
+     *     operationId="update",
+     *     tags={"3. Firebase"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Post id",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="token",
+     *         in="query",
+     *         description="Token required",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         description="Post object",
+     *         @OA\JsonContent(ref="#/components/schemas/PostRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="A post",
+     *         @OA\JsonContent(ref="#/components/schemas/PostResponse"),
+     *     )
+     * )
+     * @param Request $request
+     * @param $id
+     * @return array
+     */
     public function update(Request $request, $id)
     {
         $ref = 'posts/'.$id;
@@ -110,6 +240,35 @@ class FirebaseController extends Controller
         return response()->json($response, 200);
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/api/posts/firebase/{id}",
+     *     summary="Delete blog post",
+     *     operationId="delete",
+     *     tags={"3. Firebase"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Post id",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="token",
+     *         in="query",
+     *         description="Token required",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="A post",
+     *         @OA\JsonContent(ref="#/components/schemas/PostResponseDelete"),
+     *     )
+     * )
+     * @param $id
+     * @return array
+     */
     public function delete($id)
     {
         $ref = 'posts/'.$id;

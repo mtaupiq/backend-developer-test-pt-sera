@@ -18,6 +18,19 @@ class BillingController extends Controller
         $this->client = new Client();
     }
 
+    /**
+     * @OA\Get(
+     *     path="/billdetails",
+     *     summary="Billdetails",
+     *     description="7. Billdetails",
+     *     operationId="billdetails",
+     *     tags={"7. Billdetails"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Returns billdetails >= 100000"
+     *     )
+     * )
+     */
     public function billdetails()
     {
         $url = 'https://gist.githubusercontent.com/Loetfi/fe38a350deeebeb6a92526f6762bd719/raw/9899cf13cc58adac0a65de91642f87c63979960d/filter-data.json';
@@ -41,6 +54,7 @@ class BillingController extends Controller
             }
         }
         
-        dd($denoms);
+        // dd($denoms);
+        return $denoms;
     }
 }

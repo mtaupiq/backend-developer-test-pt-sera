@@ -1,0 +1,787 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Backend Developer Test",
+        "description": "API Documentation for backend developer test provided by PT. SERA (poin 9)",
+        "contact": {
+            "name": "Muhammad Taupiq",
+            "email": "mtaupiq@gmail.com"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "2. Authenticate"
+                ],
+                "summary": "Authenticate a user",
+                "description": "Authenticate a user and return the token if the provided credentials are correct.",
+                "operationId": "authenticate",
+                "requestBody": {
+                    "description": "User object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AuthRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuthResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "2. Authenticate"
+                ],
+                "summary": "Register a user",
+                "operationId": "register",
+                "requestBody": {
+                    "description": "User object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RegisterResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "2. Authenticate"
+                ],
+                "summary": "logout a user",
+                "operationId": "logout",
+                "responses": {
+                    "200": {
+                        "description": "response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RegisterResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/billdetails": {
+            "get": {
+                "tags": [
+                    "7. Billdetails"
+                ],
+                "summary": "Billdetails",
+                "description": "7. Billdetails",
+                "operationId": "billdetails",
+                "responses": {
+                    "200": {
+                        "description": "Returns billdetails >= 100000"
+                    }
+                }
+            }
+        },
+        "/api/posts/firebase": {
+            "get": {
+                "tags": [
+                    "3. Firebase"
+                ],
+                "summary": "List blog post",
+                "operationId": "index",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Token required",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns all posts from firebase",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Response Status",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "Response Message",
+                                            "type": "string",
+                                            "example": "posts list"
+                                        },
+                                        "data": {
+                                            "description": "Response Data",
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Post"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/posts/firebase/create": {
+            "post": {
+                "tags": [
+                    "3. Firebase"
+                ],
+                "summary": "New blog post",
+                "operationId": "create",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Token required",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Post object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PostRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "A post",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/posts/firebase/{id}": {
+            "get": {
+                "tags": [
+                    "3. Firebase"
+                ],
+                "summary": "Get post by id",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Post id",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Token required",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A post",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "3. Firebase"
+                ],
+                "summary": "Delete blog post",
+                "operationId": "delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Post id",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Token required",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A post",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostResponseDelete"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/posts/firebase/update/{id}": {
+            "put": {
+                "tags": [
+                    "3. Firebase"
+                ],
+                "summary": "Update blog post",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Post id",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Token required",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Post object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PostRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "A post",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/reqres/register": {
+            "post": {
+                "tags": [
+                    "6. reqres.in"
+                ],
+                "summary": "Register a user",
+                "description": "6. Integrasi dengan reqres.in",
+                "operationId": "register",
+                "requestBody": {
+                    "description": "User object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AuthRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuthResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/reqres/login": {
+            "post": {
+                "tags": [
+                    "6. reqres.in"
+                ],
+                "summary": "Authenticate a user",
+                "description": "6. Integrasi dengan reqres.in",
+                "operationId": "login",
+                "requestBody": {
+                    "description": "User object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AuthRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuthResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/posts/mongodb": {
+            "get": {
+                "tags": [
+                    "1. MongoDB"
+                ],
+                "summary": "List blog post",
+                "operationId": "index",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Token required",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns all posts from mongodb",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Response Status",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "Response Message",
+                                            "type": "string",
+                                            "example": "posts list"
+                                        },
+                                        "data": {
+                                            "description": "Response Data",
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Post"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/posts/mongodb/create": {
+            "post": {
+                "tags": [
+                    "1. MongoDB"
+                ],
+                "summary": "New blog post",
+                "operationId": "create",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Token required",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Post object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PostRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "A post",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/posts/mongodb/{id}": {
+            "get": {
+                "tags": [
+                    "1. MongoDB"
+                ],
+                "summary": "Get post by id",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Post id",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Token required",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A post",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "1. MongoDB"
+                ],
+                "summary": "Delete blog post",
+                "operationId": "delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Post id",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Token required",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A post",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostResponseDelete"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/posts/mongodb/update/{id}": {
+            "put": {
+                "tags": [
+                    "1. MongoDB"
+                ],
+                "summary": "Update blog post",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Post id",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Token required",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Post object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PostRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "A post",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Post": {
+                "properties": {
+                    "_id": {
+                        "description": "ID",
+                        "type": "string",
+                        "example": "625a8dad57361f68e1010936"
+                    },
+                    "title": {
+                        "description": "Title",
+                        "type": "string",
+                        "example": "Create REST API With Laravel Lumen"
+                    },
+                    "author": {
+                        "description": "Author Name",
+                        "type": "string",
+                        "example": "Muhammad Taupiq"
+                    },
+                    "body": {
+                        "description": "Post Body",
+                        "type": "string",
+                        "example": "This is body post of Create REST API With Laravel Lumen"
+                    },
+                    "updated_at": {
+                        "description": "Updated At",
+                        "type": "string",
+                        "example": "2022-04-16T13:57:44.977000Z"
+                    },
+                    "created_at": {
+                        "description": "Created At",
+                        "type": "string",
+                        "example": "2022-04-16T13:57:44.977000Z"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Post"
+                }
+            },
+            "PostRequest": {
+                "title": "PostRequest",
+                "required": [
+                    "title",
+                    "body"
+                ],
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "body": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "PostResponse": {
+                "title": "PostResponse",
+                "properties": {
+                    "status": {
+                        "description": "Response Status",
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "description": "Response Message",
+                        "type": "string",
+                        "example": "posts"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/Post"
+                    }
+                },
+                "type": "object"
+            },
+            "PostResponseDelete": {
+                "title": "PostResponseDelete",
+                "properties": {
+                    "status": {
+                        "description": "Response Status",
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "description": "Response Message",
+                        "type": "string",
+                        "example": "post deleted"
+                    }
+                },
+                "type": "object"
+            },
+            "AuthRequest": {
+                "title": "AuthRequest",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "AuthResponse": {
+                "title": "AuthResponse",
+                "properties": {
+                    "token": {
+                        "description": "Token",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "RegisterRequest": {
+                "title": "RegisterRequest",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "RegisterResponse": {
+                "title": "RegisterResponse",
+                "properties": {
+                    "status": {
+                        "description": "Response Status",
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "description": "Response message",
+                        "type": "string",
+                        "example": "user created"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}
