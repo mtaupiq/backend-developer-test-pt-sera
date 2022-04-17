@@ -22,6 +22,9 @@ $router->get('/secretkey', function(){
     return $key;
 });
 
+$router->post('/reqres/register', 'IntegrasiController@register');
+$router->post('/reqres/login', 'IntegrasiController@login');
+
 $router->group(
     [
         'prefix' => 'api',
